@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BMAgentTracker" default="compile" basedir=".">
+   <property file="build.properties"/>
+	<path id="classpath" >
+			<!--<fileset dir="${mobicents.home}/lib">
+				<include name="**/*.jar"/>
+			</fileset>-->
+			<fileset dir="WebContent/WEB-INF/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="./lib">
+						<include name="**/*.jar"/>
+			</fileset>
+		</path>
+	
+	<target name="clean">
+			<delete dir="build"/>
+		</target>
+	
+	<target name="compile">
+			<mkdir dir="build/classes"/>
+			<javac debug="true" srcdir="src" destdir="build/classes" classpathref="classpath" />
+		</target>
+
+	<target name="war" depends="clean,compile">
+			<war destfile="${warfile}.war" webxml="WebContent/WEB-INF/web.xml" update="true">
+				<classes dir="build/classes"/>
+				<fileset dir="WebContent">
+					<exclude name="WEB-INF/web.xml"/>
+				</fileset>
+			</war>
+		</target>
+
+</project>
